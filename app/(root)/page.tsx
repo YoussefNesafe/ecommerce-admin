@@ -1,9 +1,13 @@
-import { UserButton } from '@clerk/nextjs'
+import RootModalSection from "@/_sections/RootModalSection"
+
 
 const SetupPage = () => {
+
+
+
   return (
     <div className='p-4'>
-      <UserButton afterSignOutUrl="/"/>
+      <RootModalSection />
     </div>
   )
 }
