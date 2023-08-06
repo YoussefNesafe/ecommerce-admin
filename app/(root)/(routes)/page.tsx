@@ -1,15 +1,7 @@
 import RootModalSection from "@/_sections/RootModalSection"
-
-
 const SetupPage = () => {
-
-
-
   return (
-    <div className='p-4'>
-      <RootModalSection />
-    </div>
+    <RootModalSection />
   )
 }
-
 export default SetupPage
