@@ -1,7 +1,5 @@
-import prismadb from "@/lib/prismadb";
+import SettingsForm from "@/components/SettingsForm";
 import { getFirstStoreByID } from "@/utils/getFirstStoreByID";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import { FC } from "react"
 
 interface IProps {
@@ -12,7 +10,11 @@ interface IProps {
 const SettingsPage: FC<IProps> = async ({ params }) => {
   const store = await getFirstStoreByID({ id: params.storeId })
   return (
-    <div>{store.name}</div>
+    <div className="flex-col">
+      <div className="flex-1 p-8 pt-6 space-y-4">
+        <SettingsForm initialData={store} />
+      </div>
+    </div>
   )
 }
 
