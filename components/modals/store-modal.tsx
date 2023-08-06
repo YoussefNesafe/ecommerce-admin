@@ -55,7 +55,7 @@ export const StoreModal = () => {
                 </FormItem>
               )} />
               <div className="flex items-center justify-end w-full pt-6 space-x-2">
-                <Button disabled={loading} variant={'outline'} onClick={storeModal.onClose}>Cancel</Button>
+                <Button disabled={loading} variant={'outline'} type="reset" onClick={storeModal.onClose}>Cancel</Button>
                 <Button disabled={loading} type="submit">Continue</Button>
               </div>
             </form>
