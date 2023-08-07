@@ -10,6 +10,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/Form'
 import { Input } from './ui/Input'
+import toast from 'react-hot-toast'
+import axios from 'axios'
+import { useParams, useRouter } from 'next/navigation'
 
 interface IProps {
   initialData: Store
@@ -22,7 +25,8 @@ const formSchema = z.object({
 type SettingFormValues = z.infer<typeof formSchema>
 
 const SettingsForm: FC<IProps> = ({ initialData }) => {
-
+  const params = useParams();
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -32,14 +36,23 @@ const SettingsForm: FC<IProps> = ({ initialData }) => {
   });
 
   const onSubmit = async (data: SettingFormValues) => {
-    console.log(data)
+    try {
+      setLoading(true)
+      await axios.patch(`/api/stores/${params.storeId}`, data);
+      router.refresh();
+      toast.success("Store Updated.")
+    } catch (error) {
+      toast.error("Something went wrong.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
-        <Button disabled={loading} variant='destructive' size='icon' onClick={() => { }}>
+        <Button disabled={loading} variant='destructive' size='icon' onClick={() => setOpen(true)}>
           <Trash className="w-4 h-4" />
         </Button>
       </div>
