@@ -9,13 +9,12 @@ import { Separator } from "@/components/ui/Separator"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/Form'
-import { Input } from './ui/Input'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
-import AlertModal from './modals/AlertModal'
-import ApiAlert from './ui/ApiAlert'
-import ImageUpload from './ui/ImageUpload'
+import AlertModal from '../modals/AlertModal'
+import ImageUpload from '../ui/ImageUpload'
+import { Input } from '../ui/Input'
 
 interface IProps {
   initialData: Billboard | null
@@ -80,7 +79,7 @@ const BillboardForm: FC<IProps> = ({ initialData }) => {
       setLoading(true)
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
-      router.push('/')
+      router.push(`/${params.storeId}/billboards`)
       toast.success("Billboard deleted.");
     } catch (error) {
       toast.error("Make sure you removed all categories using this billboard first.")

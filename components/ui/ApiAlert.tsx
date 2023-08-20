@@ -6,7 +6,7 @@ import { Copy, Server } from "lucide-react";
 import { Badge, BadgeProps } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import toast from "react-hot-toast";
-import useOrigin from "@/hooks/useOrigin";
+import { copyToClipboard } from "@/utils/copyToClipboard";
 
 interface IProps {
   title: string;
@@ -25,11 +25,6 @@ const variantMap: Record<IProps['variant'], BadgeProps['variant']> = {
 }
 
 const ApiAlert: FC<IProps> = ({ title, description, variant = "public" }) => {
-  const origin = useOrigin()
-  const onCopy = () => {
-    navigator.clipboard.writeText(description);
-    toast.success('API Route copied to the clipboard.')
-  }
   return (
     <Alert>
 
@@ -42,7 +37,7 @@ const ApiAlert: FC<IProps> = ({ title, description, variant = "public" }) => {
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
           {description}
         </code>
-        <Button variant="outline" size='icon' onClick={onCopy}>
+        <Button variant="outline" size='icon' onClick={() => copyToClipboard({ text: description })}>
           <Copy className="w-4 h-4" />
         </Button>
       </AlertDescription>
