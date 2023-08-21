@@ -8,23 +8,23 @@ import { Button } from "@/components/ui/Button";
 import toast from "react-hot-toast";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 
-interface IProps {
+export interface IApiAlertProps {
   title: string;
   description: string;
   variant: 'public' | 'admin'
 }
 
-const textMap: Record<IProps['variant'], string> = {
+const textMap: Record<IApiAlertProps['variant'], string> = {
   public: 'Public',
   admin: 'Admin',
 }
 
-const variantMap: Record<IProps['variant'], BadgeProps['variant']> = {
+const variantMap: Record<IApiAlertProps['variant'], BadgeProps['variant']> = {
   public: 'secondary',
   admin: 'destructive',
 }
 
-const ApiAlert: FC<IProps> = ({ title, description, variant = "public" }) => {
+const ApiAlert: FC<IApiAlertProps> = ({ title, description, variant = "public" }) => {
   return (
     <Alert>
 

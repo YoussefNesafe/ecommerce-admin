@@ -8,6 +8,9 @@ import { useParams, useRouter } from "next/navigation"
 import { FC } from "react"
 import { BillboardColumn, columns } from "./Columns"
 import { DataTable } from "../ui/DataTable"
+import ApiList from "../ui/ApiList"
+import useOrigin from "@/hooks/useOrigin"
+import { IApiAlertProps } from "../ui/ApiAlert"
 
 interface IBillboardClientProps {
   data: BillboardColumn[]
@@ -16,6 +19,39 @@ interface IBillboardClientProps {
 const BillboardClient: FC<IBillboardClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
+  const origin = useOrigin();
+
+  const baseUrl = `${origin}/api/${params.storeId}`
+  const ENTITY_NAME = "billboards"
+  const ENTITY_ID_NAME = "billboardsId"
+  const API_DATA = [
+    {
+      title: "GET",
+      variant: "public",
+      description: `${baseUrl}/${ENTITY_NAME}`
+    },
+    {
+      title: "GET",
+      variant: "public",
+      description: `${baseUrl}/${ENTITY_NAME}/{${ENTITY_ID_NAME}}`
+    },
+    {
+      title: "POST",
+      variant: "admin",
+      description: `${baseUrl}/${ENTITY_NAME}`
+    },
+    {
+      title: "PATCH",
+      variant: "admin",
+      description: `${baseUrl}/${ENTITY_NAME}/{${ENTITY_ID_NAME}}`
+    },
+    {
+      title: "DELETE",
+      variant: "admin",
+      description: `${baseUrl}/${ENTITY_NAME}/{${ENTITY_ID_NAME}}`
+    }
+
+  ] as IApiAlertProps[]
   return (
     <>
       <div className="flex items-center justify-between ">
@@ -27,6 +63,9 @@ const BillboardClient: FC<IBillboardClientProps> = ({ data }) => {
       </div>
       <Separator />
       <DataTable columns={columns} data={data} serchKey="label" />
+      <Heading title="API" description="API calls for Billboards" />
+      <Separator />
+      <ApiList data={API_DATA} />
     </>
   )
 }
