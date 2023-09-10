@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useState } from "react"
-import { BillboardColumn } from "../../app/(dashboard)/[storeId]/(routes)/billboards/component/Columns"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Button } from "../ui/Button"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
@@ -10,27 +9,28 @@ import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import toast from "react-hot-toast"
 import AlertModal from "../modals/AlertModal"
+import { CategoryColumn, columns } from "./Columns"
 
 
 type IProps = {
-  data: BillboardColumn
+  data: CategoryColumn
 }
 
-const CellAction: FC<IProps> = ({ data: { id, createdAt, label } }) => {
+const CellAction: FC<IProps> = ({ data: { id, createdAt, billboardLabel, name } }) => {
   const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const updateHandler = () => router.push(`/${params.storeId}/billboards/${id}`);
+  const updateHandler = () => router.push(`/${params.storeId}/categories/${id}`);
   const deletehandler = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/${params.storeId}/billboards/${id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${id}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`)
-      toast.success("Billboard deleted.");
+      router.push(`/${params.storeId}/categories`)
+      toast.success("Category deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all categories using this billboard first.")
+      toast.error("Make sure you removed all categories using this Category first.")
     } finally {
       setLoading(false)
     }

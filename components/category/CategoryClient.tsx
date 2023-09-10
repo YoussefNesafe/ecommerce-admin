@@ -6,24 +6,24 @@ import { Button } from "../ui/Button"
 import { Separator } from "../ui/Separator"
 import { useParams, useRouter } from "next/navigation"
 import { FC } from "react"
-import { BillboardColumn, columns } from "../../app/(dashboard)/[storeId]/(routes)/billboards/component/Columns"
 import { DataTable } from "../ui/DataTable"
 import ApiList from "../ui/ApiList"
 import useOrigin from "@/hooks/useOrigin"
 import { IApiAlertProps } from "../ui/ApiAlert"
+import { CategoryColumn, columns } from "./Columns"
 
-interface IBillboardClientProps {
-  data: BillboardColumn[]
+interface IClientProps {
+  data: CategoryColumn[]
 }
 
-const BillboardClient: FC<IBillboardClientProps> = ({ data }) => {
+const CategoryClient: FC<IClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   const origin = useOrigin();
 
   const baseUrl = `${origin}/api/${params.storeId}`
-  const ENTITY_NAME = "billboards"
-  const ENTITY_ID_NAME = "billboardsId"
+  const ENTITY_NAME = "categories"
+  const ENTITY_ID_NAME = "categoriesId"
   const API_DATA = [
     {
       title: "GET",
@@ -55,19 +55,19 @@ const BillboardClient: FC<IBillboardClientProps> = ({ data }) => {
   return (
     <>
       <div className="flex items-center justify-between ">
-        <Heading title={`Billboards (${data.length})`} description="Manage billboards for your store" />
-        <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
+        <Heading title={`Categories (${data.length})`} description="Manage Categories for your store" />
+        <Button onClick={() => router.push(`/${params.storeId}/categories/new`)}>
           <Plus className="w-4 h-4 mr-2" />
           Add New
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={data} serchKey="label" />
-      <Heading title="API" description="API calls for Billboards" />
+      <DataTable columns={columns} data={data} serchKey="name" />
+      <Heading title="API" description="API calls for Categories" />
       <Separator />
       <ApiList data={API_DATA} />
     </>
   )
 }
 
-export default BillboardClient
+export default CategoryClient
