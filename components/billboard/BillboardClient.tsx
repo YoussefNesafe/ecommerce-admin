@@ -6,11 +6,11 @@ import { Button } from "../ui/Button"
 import { Separator } from "../ui/Separator"
 import { useParams, useRouter } from "next/navigation"
 import { FC } from "react"
-import { BillboardColumn, columns } from "../../app/(dashboard)/[storeId]/(routes)/billboards/component/Columns"
 import { DataTable } from "../ui/DataTable"
 import ApiList from "../ui/ApiList"
 import useOrigin from "@/hooks/useOrigin"
 import { IApiAlertProps } from "../ui/ApiAlert"
+import { BillboardColumn, columns } from "./Columns"
 
 interface IBillboardClientProps {
   data: BillboardColumn[]

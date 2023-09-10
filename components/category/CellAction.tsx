@@ -21,7 +21,10 @@ const CellAction: FC<IProps> = ({ data: { id, createdAt, billboardLabel, name } 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const updateHandler = () => router.push(`/${params.storeId}/categories/${id}`);
+  const updateHandler = () => {
+    console.log(`/${params.storeId}/categories/${id}`);
+    router.push(`/${params.storeId}/categories/${id}`);
+  }
   const deletehandler = async () => {
     try {
       setLoading(true)
@@ -58,8 +61,8 @@ const CellAction: FC<IProps> = ({ data: { id, createdAt, billboardLabel, name } 
             <Copy className="w-4 h-4 mr-2" />
             Copy ID
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Edit className="w-4 h-4 mr-2" onClick={updateHandler} />
+          <DropdownMenuItem onClick={updateHandler}>
+            <Edit className="w-4 h-4 mr-2" />
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>

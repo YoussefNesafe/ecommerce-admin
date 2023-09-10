@@ -62,7 +62,7 @@ const CategoryForm: FC<IProps> = ({ initialData, billboards }) => {
     try {
       setLoading(true)
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/category]ies/${params.categoryId}`, data);
+        await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
       } else {
         await axios.post(`/api/${params.storeId}/categories`, data);
       }

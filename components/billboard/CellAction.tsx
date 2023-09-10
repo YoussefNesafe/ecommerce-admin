@@ -1,7 +1,6 @@
 "use client"
 
 import { FC, useState } from "react"
-import { BillboardColumn } from "../../app/(dashboard)/[storeId]/(routes)/billboards/component/Columns"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Button } from "../ui/Button"
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react"
@@ -10,6 +9,7 @@ import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import toast from "react-hot-toast"
 import AlertModal from "../modals/AlertModal"
+import { BillboardColumn } from "./Columns"
 
 
 type IProps = {
@@ -58,8 +58,8 @@ const CellAction: FC<IProps> = ({ data: { id, createdAt, label } }) => {
             <Copy className="w-4 h-4 mr-2" />
             Copy ID
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Edit className="w-4 h-4 mr-2" onClick={updateHandler} />
+          <DropdownMenuItem onClick={updateHandler}>
+            <Edit className="w-4 h-4 mr-2" />
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
