@@ -1,6 +1,6 @@
 "use client"
 import * as z from 'zod'
-import { Size } from "@prisma/client"
+import { Color } from "@prisma/client"
 import { FC, useState } from "react"
 import Heading from "@/components/ui/Heading"
 import { Button } from "@/components/ui/Button"
@@ -17,7 +17,7 @@ import ImageUpload from '../ui/ImageUpload'
 import { Input } from '../ui/Input'
 
 interface IProps {
-  initialData: Size | null
+  initialData: Color | null
 }
 
 const formSchema = z.object({
@@ -25,15 +25,15 @@ const formSchema = z.object({
   value: z.string().min(1),
 })
 
-type SizeFormValues = z.infer<typeof formSchema>
+type ColorFormValues = z.infer<typeof formSchema>
 
-const SizeForm: FC<IProps> = ({ initialData }) => {
+const ColorForm: FC<IProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const form = useForm<SizeFormValues>({
+  const form = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: '',
@@ -43,30 +43,30 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
   const formType = initialData ? 'update' : 'create'
   const FORM_TEXTS = {
     create: {
-      title: 'Create size',
-      description: "Add a new size",
-      toastMessage: "Size created.",
+      title: 'Create color',
+      description: "Add a new color",
+      toastMessage: "Color created.",
       action: 'Create'
     },
     update: {
-      title: 'Edit size',
-      description: "Edit a size",
-      toastMessage: "Size updated.",
+      title: 'Edit color',
+      description: "Edit a color",
+      toastMessage: "Color updated.",
       action: 'Save changes'
     }
   }
   const { action, description, title, toastMessage } = FORM_TEXTS[formType]
 
-  const onSubmit = async (data: SizeFormValues) => {
+  const onSubmit = async (data: ColorFormValues) => {
     try {
       setLoading(true)
       if (initialData) {
-        await axios.patch(`/api/${params.storeId}/sizes/${params.sizeId}`, data);
+        await axios.patch(`/api/${params.storeId}/colors/${params.colorId}`, data);
       } else {
-        await axios.post(`/api/${params.storeId}/sizes`, data);
+        await axios.post(`/api/${params.storeId}/colors`, data);
       }
       router.refresh();
-      router.push(`/${params.storeId}/sizes`)
+      router.push(`/${params.storeId}/colors`)
       toast.success(toastMessage)
     } catch (error) {
       toast.error("Something went wrong.")
@@ -77,12 +77,12 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`);
+      await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
       router.refresh();
-      router.push(`/${params.storeId}/sizes`)
-      toast.success("Size deleted.");
+      router.push(`/${params.storeId}/colors`)
+      toast.success("Color deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all products using this size first.")
+      toast.error("Make sure you removed all products using this color first.")
     } finally {
       setLoading(false)
     }
@@ -98,7 +98,7 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {
-          initialData ? <Button disabled={loading} variant='destructive' size='icon' onClick={() => setOpen(true)}>
+          initialData ? <Button disabled={loading} variant='destructive' color='icon' onClick={() => setOpen(true)}>
             <Trash className="w-4 h-4" />
           </Button> : null
         }
@@ -112,7 +112,7 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input disabled={loading} placeholder='Size name' {...field} />
+                  <Input disabled={loading} placeholder='Color name' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,7 +121,10 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
               <FormItem>
                 <FormLabel>Value</FormLabel>
                 <FormControl>
-                  <Input disabled={loading} placeholder='Size Value' {...field} />
+                  <div className='flex items-center gap-x-4'>
+                    <Input disabled={loading} placeholder='Color Value' {...field} />
+                    <div className='p-4 border rounded-full' style={{ backgroundColor: field.value }} />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,4 +139,4 @@ const SizeForm: FC<IProps> = ({ initialData }) => {
   )
 }
 
-export default SizeForm
+export default ColorForm
