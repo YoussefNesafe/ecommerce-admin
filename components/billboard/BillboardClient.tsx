@@ -23,7 +23,7 @@ const BillboardClient: FC<IBillboardClientProps> = ({ data }) => {
 
   const baseUrl = `${origin}/api/${params.storeId}`
   const ENTITY_NAME = "billboards"
-  const ENTITY_ID_NAME = "billboardsId"
+  const ENTITY_ID_NAME = "billboardId"
   const API_DATA = [
     {
       title: "GET",

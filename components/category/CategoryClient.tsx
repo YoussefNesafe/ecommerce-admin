@@ -23,7 +23,7 @@ const CategoryClient: FC<IClientProps> = ({ data }) => {
 
   const baseUrl = `${origin}/api/${params.storeId}`
   const ENTITY_NAME = "categories"
-  const ENTITY_ID_NAME = "categoriesId"
+  const ENTITY_ID_NAME = "categoryId"
   const API_DATA = [
     {
       title: "GET",
