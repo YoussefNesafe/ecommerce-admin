@@ -88,7 +88,6 @@ const CategoryForm: FC<IProps> = ({ initialData, billboards }) => {
       setLoading(false)
     }
   }
-  const getValue = (field: any) => initialData ? field.value : billboards.length === 1 ? billboards[0].id : field.value
   return (
     <>
       <AlertModal
@@ -124,10 +123,10 @@ const CategoryForm: FC<IProps> = ({ initialData, billboards }) => {
             <FormField control={form.control} name='billboardId' render={({ field }) => (
               <FormItem>
                 <FormLabel>Billboard</FormLabel>
-                <Select disabled={loading} onValueChange={field.onChange} value={getValue(field)} defaultValue={getValue(field)} >
+                <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value} >
                   <FormControl>
                     <SelectTrigger >
-                      <SelectValue defaultValue={getValue(field)} placeholder='Select a billboard' />
+                      <SelectValue defaultValue={field.value} placeholder='Select a billboard' />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>

@@ -21,8 +21,8 @@ const ImageUpload: FC<IProps> = ({ disabled, onChange, onRemove, value }) => {
   }
   return (
     <div>
-      <div className="items-center gap-4 mb-4">{value.map((url) => (
-        <div key={url} className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
+      <div className="flex flex-col flex-wrap items-center gap-2 mb-4 md:gap-4 md:flex-row">{value.map((url) => (
+        <div key={url} className="relative w-[300px] h-[300px] md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] rounded-md overflow-hidden">
           <div className="absolute z-10 top-2 right-2">
             <Button type="button" variant='destructive' size='icon' onClick={() => onRemove(url)}>
               <Trash className="w-4 h-4" />

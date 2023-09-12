@@ -9,22 +9,19 @@ import { useParams, useRouter } from "next/navigation"
 import axios from "axios"
 import toast from "react-hot-toast"
 import AlertModal from "../modals/AlertModal"
-import { CategoryColumn, columns } from "./Columns"
+import { CategoryColumn } from "./Columns"
 
 
 type IProps = {
   data: CategoryColumn
 }
 
-const CellAction: FC<IProps> = ({ data: { id, createdAt, billboardLabel, name } }) => {
+const CellAction: FC<IProps> = ({ data: { id } }) => {
   const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const updateHandler = () => {
-    console.log(`/${params.storeId}/categories/${id}`);
-    router.push(`/${params.storeId}/categories/${id}`);
-  }
+  const updateHandler = () => router.push(`/${params.storeId}/categories/${id}`);
   const deletehandler = async () => {
     try {
       setLoading(true)
